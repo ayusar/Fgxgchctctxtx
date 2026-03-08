@@ -1,6 +1,3 @@
-# ─────────────────────────────────────────────────────
-#  Telegram Channel Forwarder  •  Docker Image
-# ─────────────────────────────────────────────────────
 FROM python:3.12-slim
 
 LABEL description="Telegram forwarder with Flask stats endpoint"
@@ -15,8 +12,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY telegram_forwarder.py .
-COPY generate_session.py .
+COPY bot.py .
+
 
 # ── Required env vars ──────────────────────────────
 # API_ID            your Telegram API ID
