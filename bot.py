@@ -309,8 +309,16 @@ async def main():
     me = await client.get_me()
     print(f"👤  Logged in as: {me.first_name} (@{me.username})\n")
 
-    source = await client.get_entity(SOURCE_CHANNEL)
-    dest   = await client.get_entity(DEST_CHANNEL)
+    # Populate Telethon entity cache so numeric IDs can be resolved
+    print("🔄  Loading dialogs to resolve channel IDs…")
+    await client.get_dialogs()
+    print("✅  Dialogs loaded.\n")
+
+    def _parse_channel(val: str):
+        return int(val) if val.lstrip("-").isdigit() else val
+
+    source = await client.get_entity(_parse_channel(SOURCE_CHANNEL))
+    dest   = await client.get_entity(_parse_channel(DEST_CHANNEL))
     print(f"📡  {getattr(source,'title',SOURCE_CHANNEL)}  →  {getattr(dest,'title',DEST_CHANNEL)}\n")
 
     thumb_bytes = download_thumbnail()
