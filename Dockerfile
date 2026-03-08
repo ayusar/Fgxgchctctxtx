@@ -32,4 +32,4 @@ COPY generate_session.py .
 
 EXPOSE 8080
 
-CMD ["python", "telegram_forwarder.py"]
+CMD ["python", "bot.py"]
